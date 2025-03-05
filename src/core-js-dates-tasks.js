@@ -116,8 +116,37 @@ function getNextFriday(date) {
  * 1, 2024 => 31
  * 2, 2024 => 29
  */
-function getCountDaysInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountDaysInMonth(month, year) {
+  function isYearLeap(y) {
+    if (y % 4 !== 0) {
+      return false;
+    }
+    if (y % 100 !== 0) {
+      return true;
+    }
+    if (y % 400 === 0) {
+      return true;
+    }
+    return false;
+  }
+  let daysNumber = 0;
+  switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      daysNumber = 31;
+      break;
+    case 2:
+      daysNumber = isYearLeap(year) ? 29 : 28;
+      break;
+    default:
+      daysNumber = 30;
+  }
+  return daysNumber;
 }
 
 /**
