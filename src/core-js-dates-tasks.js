@@ -97,8 +97,12 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const newDate = new Date(date);
+  const day = newDate.getDay();
+  const multiplier = day < 5 ? 5 - day : 12 - day;
+  const timeStamp = dateToTimestamp(date) + multiplier * 24 * 3600 * 1000;
+  return new Date(timeStamp);
 }
 
 /**
