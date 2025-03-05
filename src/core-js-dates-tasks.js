@@ -231,8 +231,42 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(month, year) {
+  function isYearLeap(y) {
+    if (y % 4 !== 0) {
+      return false;
+    }
+    if (y % 100 !== 0) {
+      return true;
+    }
+    if (y % 400 === 0) {
+      return true;
+    }
+    return false;
+  }
+  let daysNumber = 0;
+  switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      daysNumber = 31;
+      break;
+    case 2:
+      daysNumber = isYearLeap(year) ? 29 : 28;
+      break;
+    default:
+      daysNumber = 30;
+  }
+  let count = 0;
+  for (let i = 1; i <= daysNumber; i += 1) {
+    const day = new Date(year, month - 1, i).getDay();
+    if (day === 0 || day === 6) count += 1;
+  }
+  return count;
 }
 
 /**
